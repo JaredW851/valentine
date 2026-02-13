@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Be My Valentine</title>
+
+<style>
+body {
+    margin: 0;
+    padding: 0;
+    background: linear-gradient(135deg, #ff9a9e, #fad0c4);
+    font-family: 'Arial', sans-serif;
+    text-align: center;
+    overflow: hidden;
+}
+
+.container {
+    position: relative;
+    top: 30vh;
+}
+
+h1 {
+    font-size: 3em;
+    color: white;
+}
+
+button {
+    padding: 15px 40px;
+    font-size: 1.2em;
+    border: none;
+    border-radius: 30px;
+    margin: 20px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+#yesBtn {
+    background-color: #ff4b5c;
+    color: white;
+}
+
+#noBtn {
+    background-color: white;
+    color: #ff4b5c;
+    position: absolute;
+}
+
+#message {
+    font-size: 2em;
+    color: white;
+    margin-top: 30px;
+    display: none;
+}
+
+.heart {
+    position: fixed;
+    top: -10px;
+    font-size: 24px;
+    animation: fall linear forwards;
+}
+
+@keyframes fall {
+    to {
+        transform: translateY(100vh);
+        opacity: 0;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+    <h1>Will you be my valentine?</h1>
+    <button id="yesBtn">Yes</button>
+    <button id="noBtn">No</button>
+    <div id="message">I knew you will choose yes! I love you my darling! ❤️</div>
+</div>
+
+<!-- Hidden YouTube Player -->
+<iframe id="music" width="0" height="0"
+src="https://www.youtube.com/embed/izGwDsrQ1eQ?enablejsapi=1"
+allow="autoplay">
+</iframe>
+
+<script>
+const noBtn = document.getElementById("noBtn");
+const yesBtn = document.getElementById("yesBtn");
+const message = document.getElementById("message");
+const music = document.getElementById("music");
+
+// 让 No 按钮乱跑
+noBtn.addEventListener("mouseover", () => {
+    const x = Math.random() * window.innerWidth * 0.8;
+    const y = Math.random() * window.innerHeight * 0.8;
+    noBtn.style.left = x + "px";
+    noBtn.style.top = y + "px";
+});
+
+// 点击 Yes
+yesBtn.addEventListener("click", () => {
+
+    message.style.display = "block";
+
+    // 播放音乐
+    music.src += "&autoplay=1";
+
+    // 爱心雨
+    setInterval(createHeart, 200);
+});
+
+function createHeart() {
+    const heart = document.createElement("div");
+    heart.classList.add("heart");
+    heart.innerHTML = "❤️";
+    heart.style.left = Math.random() * 100 + "vw";
+    heart.style.animationDuration = (Math.random() * 3 + 2) + "s";
+    document.body.appendChild(heart);
+
+    setTimeout(() => {
+        heart.remove();
+    }, 5000);
+}
+</script>
+
+</body>
+</html>
